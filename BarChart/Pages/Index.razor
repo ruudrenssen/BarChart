@@ -1,5 +1,6 @@
 ﻿@page "/"
 
+@using Charts
 @using Newtonsoft.Json.Linq;
 @using Newtonsoft.Json;
 @using System.IO;
@@ -13,6 +14,8 @@
     {
         JObject chart_Data = (JObject)JToken.ReadFrom(reader);
     }
-}
 
-@chartData
+    BarChart chart = new BarChart(chartData);
+}
+@((MarkupString)chart.Chart().ToString())
+@chart.Chart()

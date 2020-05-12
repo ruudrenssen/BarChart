@@ -1,6 +1,6 @@
 {
-  "title": "Chart 1",
-  "bars": [
+  "Title": "Chart 1",
+  "Bars": [
     {
       "Name": "Bar 1",
       "Value": 20

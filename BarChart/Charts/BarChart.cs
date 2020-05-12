@@ -18,11 +18,21 @@ namespace BarChart.Charts
 
         public BarChart(JObject json)
         {
+            bars = new List<SingleBar>();
             data = json;
+            foreach (var bar in data["Bars"])
+            {
+                SingleBar item = new SingleBar();
+                item.Name = bar["Name"].ToString();
+                item.Value = (double)bar["Value"];
+                bars.Add(item);
+            }
             totalValue = bars.Aggregate((double)0, (total, next) => total + next.Value);
             maxValue = bars.Aggregate((double)0, (max, next) => max < next.Value ? next.Value : max);
             minValue = bars.Aggregate((double)0, (min, next) => min > next.Value ? next.Value : min);
             range = Range(minValue, maxValue);
+            
+            bars.ForEach(bar => bar.TotalValue = totalValue);
         }
 
         public XDocument Chart()
