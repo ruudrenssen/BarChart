@@ -30,9 +30,10 @@ namespace BarChart.Charts
             totalValue = bars.Aggregate((double)0, (total, next) => total + next.Value);
             maxValue = bars.Aggregate((double)0, (max, next) => max < next.Value ? next.Value : max);
             minValue = bars.Aggregate((double)0, (min, next) => min > next.Value ? next.Value : min);
-            range = Range(minValue, maxValue);
             
             bars.ForEach(bar => bar.TotalValue = totalValue);
+            bars.ForEach(bar => bar.MaxValue = maxValue);
+            bars.ForEach(bar => bar.MinValue = minValue);
         }
 
         public XDocument Chart()
@@ -51,33 +52,6 @@ namespace BarChart.Charts
             }
 
             return svg;
-        }
-
-        private double Range(double min, double max)
-        {
-            double range;
-
-            // Implementation 1: most simple, just 100%
-            range = 100;
-
-            // Implementation 2: normalize for largest value
-            range = max;
-
-            // Implementation 3: take negative values into account
-            if (max < 0)
-            {
-                range = Math.Abs(min);
-            }
-            else if (min > 0)
-            {
-                range = max;
-            }
-            else
-            {
-                range = max + Math.Abs(min);
-            }
-
-            return range;
         }
     }
 }
