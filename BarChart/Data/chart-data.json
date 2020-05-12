@@ -1,0 +1,21 @@
+{
+  "title": "Chart 1",
+  "bars": [
+    {
+      "Name": "Bar 1",
+      "Value": 20
+    },
+    {
+      "Name": "Bar 2",
+      "Value": 40
+    },
+    {
+      "Name": "Bar 3",
+      "Value": 60
+    },
+    {
+      "Name": "Bar 4",
+      "Value": -20
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+﻿@page "/"
+
+@using Newtonsoft.Json.Linq;
+@using Newtonsoft.Json;
+@using System.IO;
+
+@{
+    JObject chartData = JObject.Parse(File.ReadAllText(@"./Data/chart-data.json"));
+
+    // read JSON directly from a file
+    using (StreamReader file = File.OpenText(@"./Data/chart-data.json"))
+    using (JsonTextReader reader = new JsonTextReader(file))
+    {
+        JObject chart_Data = (JObject)JToken.ReadFrom(reader);
+    }
+}
+
+@chartData
