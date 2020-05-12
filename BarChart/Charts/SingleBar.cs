@@ -11,18 +11,18 @@ namespace BarChart.Charts
         public double MinValue { get; set; }
         public double MaxValue { get; set; }
         private double minPercentage => MinValue * 100 / TotalValue;
-        private double maxPercentage => MaxValue * 100 / TotalValue;
         private double percentage => Value * 100 / TotalValue;
         private double width => Math.Abs(percentage) * factor;
         private double factor => 100 / Range();
         private double xPosition => Value > 0 ? Math.Abs(minPercentage * factor) : 0;
 
-        public XElement Rectangle()
+        public XElement Rectangle(double height = 100, double y = 0)
         {
             XElement rect = new XElement("rect",
                 new XAttribute("width", width.ToString() + "%"),
-                new XAttribute("height", 100.ToString() + "%"),
-                new XAttribute("x", xPosition.ToString() + "%"));
+                new XAttribute("height", height.ToString() + "%"),
+                new XAttribute("x", xPosition.ToString() + "%"),
+                new XAttribute("y", y.ToString() + "%"));
 
             return rect;
         }
@@ -30,6 +30,7 @@ namespace BarChart.Charts
         public XDocument SVG()
         {
             XDocument bar = new XDocument("svg");
+            bar.Element("svg").Add(Rectangle());
 
             return bar;
         }
