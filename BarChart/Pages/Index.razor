@@ -6,10 +6,10 @@
 @using System.IO;
 
 @{
-    JObject chartData = JObject.Parse(File.ReadAllText(@"./Data/chart-data.json"));
+    JObject chartData = JObject.Parse(File.ReadAllText(@"./Data/dataset-3.json"));
 
     // read JSON directly from a file
-    using (StreamReader file = File.OpenText(@"./Data/chart-data.json"))
+    using (StreamReader file = File.OpenText(@"./Data/dataset-3.json"))
     using (JsonTextReader reader = new JsonTextReader(file))
     {
         JObject chart_Data = (JObject)JToken.ReadFrom(reader);
@@ -17,4 +17,5 @@
 
     BarChart chart = new BarChart(chartData);
 }
+
 @((MarkupString)chart.Chart().ToString())
