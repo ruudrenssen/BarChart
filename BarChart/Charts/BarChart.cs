@@ -14,7 +14,6 @@ namespace BarChart.Charts
         private double totalValue = 0;
         private double maxValue = 0;
         private double minValue = 0;
-        private double range = 0;
 
         public BarChart(JObject json)
         {
@@ -27,7 +26,12 @@ namespace BarChart.Charts
                 item.Value = (double)bar["Value"];
                 bars.Add(item);
             }
+            // Implementation 1: order by value
             bars = bars.OrderByDescending(bar => bar.Value).ToList();
+
+            // Implementation 2: order by Math.Abs so negative allocations are included
+            bars = bars.OrderByDescending(bar => Math.Abs(bar.Value)).ToList();
+
             totalValue = bars.Aggregate((double)0, (total, next) => total + next.Value);
             maxValue = bars.Aggregate((double)0, (max, next) => max < next.Value ? next.Value : max);
             minValue = bars.Aggregate((double)0, (min, next) => min > next.Value ? next.Value : min);
@@ -40,13 +44,7 @@ namespace BarChart.Charts
         public XDocument Chart()
         {
             XDocument svg;
-            svg = new XDocument(new XElement("svg",
-                new XAttribute("class", "barchart"),
-                new XAttribute("data-total", totalValue),
-                new XAttribute("data-min", minValue),
-                new XAttribute("data-max", maxValue),
-                new XAttribute("data-range", range)
-                ));
+            svg = new XDocument(new XElement("svg", new XAttribute("class", "barchart")));
             int index = 0;
             foreach (SingleBar bar in bars)
             {
