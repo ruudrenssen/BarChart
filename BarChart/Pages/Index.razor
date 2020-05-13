@@ -2,18 +2,10 @@
 
 @using Charts
 @using Newtonsoft.Json.Linq;
-@using Newtonsoft.Json;
 @using System.IO;
 
 @{
     JObject chartData = JObject.Parse(File.ReadAllText(@"./Data/dataset-3.json"));
-
-    // read JSON directly from a file
-    using (StreamReader file = File.OpenText(@"./Data/dataset-3.json"))
-    using (JsonTextReader reader = new JsonTextReader(file))
-    {
-        JObject chart_Data = (JObject)JToken.ReadFrom(reader);
-    }
 
     BarChart chart = new BarChart(chartData);
 }

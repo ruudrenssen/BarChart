@@ -27,6 +27,7 @@ namespace BarChart.Charts
                 item.Value = (double)bar["Value"];
                 bars.Add(item);
             }
+            bars = bars.OrderByDescending(bar => bar.Value).ToList();
             totalValue = bars.Aggregate((double)0, (total, next) => total + next.Value);
             maxValue = bars.Aggregate((double)0, (max, next) => max < next.Value ? next.Value : max);
             minValue = bars.Aggregate((double)0, (min, next) => min > next.Value ? next.Value : min);
@@ -46,9 +47,12 @@ namespace BarChart.Charts
                 new XAttribute("data-max", maxValue),
                 new XAttribute("data-range", range)
                 ));
+            int index = 0;
             foreach (SingleBar bar in bars)
             {
-                svg.Element("svg").Add(bar.Rectangle());
+                double height = (double)100 / bars.Count();
+                svg.Element("svg").Add(bar.Rectangle(height, index * height));
+                index++;
             }
 
             return svg;
