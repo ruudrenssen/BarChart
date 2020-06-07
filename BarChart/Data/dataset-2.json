@@ -3,19 +3,19 @@
   "Bars": [
     {
       "Name": "Bar 1",
-      "Value": 50
+      "Value": 12
     },
     {
       "Name": "Bar 2",
-      "Value": 25
+      "Value": -6
     },
     {
       "Name": "Bar 3",
-      "Value": 15
+      "Value": 4
     },
     {
       "Name": "Bar 4",
-      "Value": 10
+      "Value": 2
     }
   ]
 }
