@@ -13,7 +13,7 @@ namespace BarChart.Charts
         public double MaxValue { get; set; }
         private double minPercentage => MinValue * 100 / TotalValue;
         private double percentage => Value * 100 / TotalValue;
-        private double width => Math.Abs(percentage) * factor;
+        private double width => Math.Abs(percentage * factor);
         private double factor => TotalValue / Range();
         private double xPosition => Value > 0 ? Math.Abs(minPercentage * factor) : 0;
 
@@ -42,7 +42,6 @@ namespace BarChart.Charts
         {
             double range;
 
-            // Implementation 3: take negative values into account
             if (MaxValue < 0)
             {
                 range = Math.Abs(MinValue);

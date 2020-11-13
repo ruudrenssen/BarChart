@@ -26,10 +26,7 @@ namespace BarChart.Charts
                 item.Value = (double)bar["Value"];
                 bars.Add(item);
             }
-            // Implementation 1: order by value
-            bars = bars.OrderByDescending(bar => bar.Value).ToList();
 
-            // Implementation 2: order by Math.Abs so negative allocations are included
             bars = bars.OrderByDescending(bar => Math.Abs(bar.Value)).ToList();
 
             totalValue = bars.Aggregate((double)0, (total, next) => total + next.Value);
